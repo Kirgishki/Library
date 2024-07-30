@@ -1,5 +1,11 @@
 const myLibrary = [new Book("Zika"), new Book("Slika")];
 
+const addBooksButton = document.querySelector("#addBookButton");
+const addBookDialog = document.querySelector("#addBookDialog");
+const cancelAddBookButton = document.querySelector("#cancelAddBookButton");
+
+console.log(addBooksButton);
+
 function Book(name) {
     this.name = name;
   }
@@ -25,3 +31,13 @@ function displayBooks(){
 }
 
 displayBooks();
+
+
+addBooksButton.addEventListener("click", () => {
+    addBookDialog.showModal();
+});
+
+cancelAddBookButton.addEventListener("click", (e)=>{
+    e.preventDefault();
+    addBookDialog.showModal();
+});
