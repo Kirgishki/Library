@@ -1,4 +1,6 @@
-const myLibrary = [new Book("Witcher: Taj i taj"), new Book("Song of Ice and Fire")];
+let ids = 0;
+const myLibrary = [new Book("Witcher: Taj i taj", "Sapkowski", 256),
+                 new Book("Song of Ice and Fire")];
 
 const addBooksButton = document.querySelector("#addBookButton");
 const importBookButton = document.querySelector("#importBookButton");
@@ -6,11 +8,11 @@ const addBookDialog = document.querySelector("#addBookDialog");
 const addBookForm = document.querySelector("#addBookDialog > form");
 const cancelAddBookButton = document.querySelector("#cancelAddBookButton");
 
-
 function Book(name, author, pages) {
     this.name = name;
     this.author = author;
     this.pages = pages;
+    this.id = ids++;
 }
 
 Book.prototype.addBookToLib = function(){
@@ -31,6 +33,7 @@ function displayBooks(){
 
         let card = document.createElement("div");
         card.classList.add('bookCard');
+        card.dataset.id = book.id;
 
         let bookMenuIcon = document.createElement("div");
         bookMenuIcon.innerHTML = "&vellip;";
@@ -58,10 +61,17 @@ function displayBooks(){
         
         bookMenu.addEventListener("click", (e)=>{
             let targetContent = e.target.textContent;
+            let targetID = e.target.parentElement.parentElement.parentElement.dataset.id;
+            console.log(targetID);
 
             switch(targetContent){
                 case "Remove": 
                     e.target.parentElement.parentElement.parentElement.remove();
+                    for (const i in myLibrary) {
+                        if(myLibrary[i].id == targetID){
+                            myLibrary.splice(targetID, 1);
+                        }
+                    };
                     break ;
                 case "Read":
                     break ;
