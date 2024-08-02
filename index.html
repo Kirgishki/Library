@@ -18,20 +18,20 @@
       <dialog id="addBookDialog">
         <form>
           <div>
-            <label for="">Enter book name: </label>
-            <input type="text">
+            <label for="bookName">Enter book name: </label>
+            <input type="text" name="bookName">
           </div>
           <div>
-            <label for="">Enter book author: </label>
-            <input type="text">
+            <label for="bookAuthor">Enter book author: </label>
+            <input type="text" name="bookAuthor">
           </div>
           <div>
-            <label for="">Enter number of pages: </label>
-            <input type="number">
+            <label for="numOfPages">Enter number of pages: </label>
+            <input type="number" name="numOfPages">
           </div>
           <div>
-            <button>Add book</button>
-            <button id="cancelAddBookButton">Cancel</button>
+            <button id="importBookButton">Add book</button>
+            <button id="cancelAddBookButton" formmethod="dialog">Cancel</button>
           </div>
         </form>
       </dialog>
