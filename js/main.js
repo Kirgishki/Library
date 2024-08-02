@@ -1,4 +1,4 @@
-const myLibrary = [new Book("Witcher: Taj i taj da ga ne bi videodwadaw"), new Book("Song of Ice and Fire")];
+const myLibrary = [new Book("Witcher: Taj i taj"), new Book("Song of Ice and Fire")];
 
 const addBooksButton = document.querySelector("#addBookButton");
 const importBookButton = document.querySelector("#importBookButton");
@@ -26,12 +26,20 @@ function displayBooks(){
     
     let booksDiv = document.querySelector(".booksContainer");
     booksDiv.textContent = "";
-    
+
     myLibrary.forEach(book => {
+
         let card = document.createElement("div");
         card.classList.add('bookCard');
+
+        let bookMenuIcon = document.createElement("div");
+        bookMenuIcon.innerHTML = "&vellip;";
+        bookMenuIcon.classList.add("bookMenuIcon");
+
         let bookMenu = document.createElement("div");
         bookMenu.classList.add('bookMenu');
+        bookMenu.classList.add('bookMenuHide');
+
         bookMenu.innerHTML = `<ul>
             <li>Remove<li>
             <li>Read<li>
@@ -41,13 +49,30 @@ function displayBooks(){
         bookTitle.textContent = book.name;
         card.appendChild(bookTitle);
         card.appendChild(bookMenu);
+        card.appendChild(bookMenuIcon);
         booksDiv.appendChild(card);
+
+        bookMenuIcon.addEventListener("click", function(e){
+            this.parentElement.querySelector('.bookMenu').classList.toggle('bookMenuHide');
+        });
+        
+        bookMenu.addEventListener("click", (e)=>{
+            let targetContent = e.target.textContent;
+
+            switch(targetContent){
+                case "Remove": 
+                    e.target.parentElement.parentElement.parentElement.remove();
+                    break ;
+                case "Read":
+                    break ;
+            };
+        });
+
     });
     
 }
 
 displayBooks();
-
 
 addBooksButton.addEventListener("click", () => {
     addBookDialog.showModal();
