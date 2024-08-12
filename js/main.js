@@ -1,5 +1,5 @@
 let ids = 0;
-const myLibrary = [new Book("Witcher: Taj i taj", "Sapkowski", 256),
+const myLibrary = [new Book("Witcher: Taj i taj", "Sapkowski", 256, true),
                  new Book("Song of Ice and Fire")];
 
 const addBooksButton = document.querySelector("#addBookButton");
@@ -8,10 +8,11 @@ const addBookDialog = document.querySelector("#addBookDialog");
 const addBookForm = document.querySelector("#addBookDialog > form");
 const cancelAddBookButton = document.querySelector("#cancelAddBookButton");
 
-function Book(name, author, pages) {
+function Book(name, author, pages, isRead) {
     this.name = name;
     this.author = author;
     this.pages = pages;
+    this.isRead = isRead;
     this.id = ids++;
 }
 
@@ -49,6 +50,10 @@ function displayBooks(){
         </ul>`;
         let bookTitle = document.createElement("h3");
         
+        if(book.isRead){
+            bookTitle.classList.add('isRead');
+        }
+        
         bookTitle.textContent = book.name;
         card.appendChild(bookTitle);
         card.appendChild(bookMenu);
@@ -74,6 +79,12 @@ function displayBooks(){
                     };
                     break ;
                 case "Read":
+                    e.target.parentElement.parentElement.parentElement.querySelector('h3').classList.toggle('isRead');
+                    for (const i in myLibrary) {
+                        if(myLibrary[i].id == targetID){
+                            myLibrary[i].isRead = myLibrary[i].isRead ? false : true;
+                        }
+                    };
                     break ;
             };
         });
@@ -88,7 +99,7 @@ addBooksButton.addEventListener("click", () => {
     addBookDialog.showModal();
 });
 
-addBookDialog.addEventListener("close", (e)=>{
+addBookDialog.addEventListener("close", ()=>{
     
 });
 
